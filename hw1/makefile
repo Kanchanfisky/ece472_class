@@ -1,4 +1,4 @@
-FILE=ece472_hw1_branaugj_kuceyb
+FILE=ECE472_HW1_branaugj_kuceyb
 
 default:
 	pdflatex $(FILE).tex
