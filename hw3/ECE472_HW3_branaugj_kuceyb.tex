@@ -72,7 +72,7 @@
 		the C, Z, V, and N flags.
 		\\
 		\\
-		%\includegraphics{problem3.jpg}
+		\includegraphics[scale=0.5]{problem3.jpg}
 
 	\item[(3.10)] Why does the ARM provide a reverse subtract instruction \textit{RSB
 		r0, r1, r2} that implements \textit{[r0] = [r2] - [r1]} when the normal
@@ -127,10 +127,10 @@
 		\\
 		\begin{verbatim}
 		START:                  ; start of loop
-		LDR   r2, [r0], #1      ; load byte into r2, increment r0 pointer
+		LDR   r2, [r0], #4      ; load byte into r2, increment r0 pointer
 		CMP   r2, #0x00         ; check if byte is null
 		BEQ   END               ; jump to end of loop if null byte
-		STRB  r2, [r1], #1      ; store read byte into r1, increment r1 pointer
+		STRB  r2, [r1], #4      ; store read byte into r1, increment r1 pointer
 		B     START             ; jump to start of loop
 		END:                    ; end of loop, continue with program
 		\end{verbatim}
@@ -148,11 +148,11 @@
 		CMP    r1, r2           ; check if registers are pointing to same location
 		MOVEQ  r0, #1           ; load immediate 1 into r0 if same location
 		BEQ    END              ; jump to end of loop
-		CMP    [r1], [r2]       ; compare data at those locations
+		LDR    r3, [r1], #4     ; load data at location in r1 to r3, increment r1
+		LDR    r4, [r2], #-4    ; load data at location in r2 to r4, decrement r2
+		CMP    r3, r4           ; compare data at those locations
 		MOVNE  r0, #0           ; store immediate 0 to r0 if not same character
 		BNE    END              ; jump to end of loop
-		ADD    r1, r1, #1       ; increment r1 pointer
-		SUB    r2, r2, #1       ; decrement r2 pointer
 		B      START            ; jump to start of loop
 		END:                    ; end of loop, continue with program
 		\end{verbatim}
