@@ -93,41 +93,69 @@
 		not all numbers between 255 and $255 \times 2^{15}$ cannot be represented 
 		because not all numbers are multiples of this form.
 
-%\item[(2.17)] What is the decimal equivalent of the 32-bit IEEE floating point value
-%	CC4C0000?
-%	\item[\textbullet] The following are the components of this floating point value:
-%  \begin{enumerate}
-%    \item[-] Sign = 1 (negative)
-%    \item[-] Exponent = 10011000 = 152 - 127 = {\large\textit{\textbf{25}}}
-%    \item[-] Significand = 1001100...0 = $\frac{1}{2}$ + $\frac{1}{16}$ + $\frac{1}{32}$ =
-%	    $\frac{19}{32}$ = {\large\textit{\textbf{0.59375}}}
-%    \item[-] Decimal number = $-1.59375 \times 2^{25}$ =
-%	    {\large\textit{\textbf{-53477376}}} 
-%  \end{enumerate}
-%
-%\item[(2.22)] What is the difference between a \textit{truncation} error and a
-%	\textit{rounding} error?
-%  \item[\textbullet] A truncation error is when bits are cut off of the end (which always
-%	results in a round-down). A rounding error is when a number is either rounded up
-%	or down based on whether the unwanted bits are greater than/equal to .5 or less
-%	than .5, respectively. Both errors happen due to significant figure requirements.
-%
-%\item[2.40] Draw a truth table for the circuit below and explain what it does:
-%  \item[\textbullet] This circuit is logically equivalent to an XOR. \\
-%    \\
-%    \begin{tabular}{ c c | c }
-%	    A & B & C \\
-%	    \hline
-%	    0 & 0 & 0 \\
-%	    0 & 1 & 1 \\
-%	    1 & 0 & 1 \\
-%	    1 & 1 & 0 \\
-%    \end{tabular}
-%
-%\item[2.45] It is possible to have n-input AND, OR, NAND, and NOR gates, where n > 2. Can
-%	you have an n-input XOR gate for n > 2? Explain your answer with a truth table.
-%  \item[\textbullet] No, XOR gates can only have 2 inputs. An XOR gate with more than 2
-%	  inputs can be representented with multiple 2 input XOR gates.
+	\item[(3.18)] Write one or more ARM instructions that will clear bits 20 to 25
+		inclusive in register r0. All the other bits of r0 should remain
+		unchanged.
+	\item[\textbullet] AND\ \ \ r0, r0, \#0xFC0FFFFF
+	\item[\textbullet] ANDS\ \ \ r0, r0, \#0xFC0FFFFF (sets status register)
+
+	\item[(3.19)] This is a classic problem of assembly language programming. Write a
+		sequence of ARM instructions that swap the contents of registers r0 and r1
+		without using any additional registers or memory storage (that is, you
+		can't move r1 to a temporary location).
+	\item[\textbullet] This can be done using the XOR-swap algorithm:
+		\begin{enumerate}
+			\item[-] EOR\ \ \ r0, r0, r1
+			\item[-] EOR\ \ \ r1, r0, r1
+			\item[-] EOR\ \ \ r0, r0, r1
+		\end{enumerate}
+	\item[(3.25)] What is the binary encoding of the following instructions?
+		\begin{enumerate}
+			\item[a)] STRB\ \ \ r1, [r2]
+			\item[-] 1110 01 0 0 0 1 0 0 0010 0001 000000000000
+			\item[b)] LDR\ \ \ r3, [r4, r5]!
+			\item[-] 1110 01 1 1 1 0 1 1 0100 0011 00000 00 0 0101
+			\item[c)] LDR\ \ \ r3, [r4], r5
+			\item[-] 1110 01 1 0 1 0 1 1 0100 0011 00000 00 0 0101
+			\item[d)] LDR\ \ \ r3, [r4, \#-6]!
+			\item[-] 1110 01 0 1 0 0 1 1 0100 0011 111111111010
+		\end{enumerate}
+
+	\item[(3.39)] Write an ARM assembly language program that scans a string
+		terminated by the null byte 0x00 and copies the string from a source
+		location pointed at by r0 to a destination pointed at by r1.
+		\\
+		\begin{verbatim}
+		START:                  ; start of loop
+		LDR   r2, [r0], #1      ; load byte into r2, increment r0 pointer
+		CMP   r2, #0x00         ; check if byte is null
+		BEQ   END               ; jump to end of loop if null byte
+		STRB  r2, [r1], #1      ; store read byte into r1, increment r1 pointer
+		B     START             ; jump to start of loop
+		END:                    ; end of loop, continue with program
+		\end{verbatim}
+
+	\item[(3.51)] Write an ARM assembly language program to determine whether a string
+		of characters with and odd length is a palindrome under the following
+		constraints: The string of ASIC-encoded characters is stored in memory, At
+		the start of the program, register r1 contains the address of the first
+		character in the string, and r2 contains the address of the last
+		character. On exit from the program, register r0 contains a 0 if the
+		string is not a palindrome, and 1 if it is.
+		\\
+		\begin{verbatim}
+		START:                  ; start of loop
+		CMP    r1, r2           ; check if registers are pointing to same location
+		MOVEQ  r0, #1           ; load immediate 1 into r0 if same location
+		BEQ    END              ; jump to end of loop
+		CMP    [r1], [r2]       ; compare data at those locations
+		MOVNE  r0, #0           ; store immediate 0 to r0 if not same character
+		BNE    END              ; jump to end of loop
+		ADD    r1, r1, #1       ; increment r1 pointer
+		SUB    r2, r2, #1       ; decrement r2 pointer
+		B      START            ; jump to start of loop
+		END:                    ; end of loop, continue with program
+		\end{verbatim}
 
 \end{enumerate}
 
