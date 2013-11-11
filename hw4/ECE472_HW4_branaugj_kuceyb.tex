@@ -124,62 +124,73 @@
 	\item[\textbullet] Set: a collection of lines equal to $\frac{size\ of\ main\
 		memory}{size\ of\ cache}$
 
-	\item[(9.12)] What is the binary encoding of the following instructions?
-		\begin{enumerate}
-			\item[a)] STRB\ \ \ r1, [r2]
-			\item[-] 1110 01 0 0 0 1 0 0 0010 0001 000000000000
-			\item[b)] LDR\ \ \ r3, [r4, r5]!
-			\item[-] 1110 01 1 1 1 0 1 1 0100 0011 00000 00 0 0101
-			\item[c)] LDR\ \ \ r3, [r4], r5
-			\item[-] 1110 01 1 0 1 0 1 1 0100 0011 00000 00 0 0101
-			\item[d)] LDR\ \ \ r3, [r4, \#-6]!
-			\item[-] 1110 01 0 1 0 0 1 1 0100 0011 111111111010
-		\end{enumerate}
+	\item[(9.12)] How is data in main store mapped on to each of the following?
+	\item[\textbullet] Direct mapped cache: main memory is organized into sets, which
+		are organized into lines (see 9.11)
+	\item[\textbullet] Fully associative cache: cache takes a line directly from main
+		memory and each line is paired with a tag address location and a bit that
+		stores the state of the data's validity. This is an expensive type of
+		cache, as it requires physical space for both the data bits and the tag
+		bits, resulting in either twice the cache size needed or half the cache
+		size usable.
+	\item[\textbullet] Set associative cache: the cache contains multiple sets, where
+		the address of any given line is the same across all sets. The sets are
+		searched in parallel, and a match in any set causes the search to end.
 
-	\item[(9.17)] Write an ARM assembly language program that scans a string
-		terminated by the null byte 0x00 and copies the string from a source
-		location pointed at by r0 to a destination pointed at by r1.
-		\\
-		\begin{verbatim}
-		START:                  ; start of loop
-		LDR   r2, [r0], #4      ; load byte into r2, increment r0 pointer
-		CMP   r2, #0x00         ; check if byte is null
-		BEQ   END               ; jump to end of loop if null byte
-		STRB  r2, [r1], #4      ; store read byte into r1, increment r1 pointer
-		B     START             ; jump to start of loop
-		END:                    ; end of loop, continue with program
-		\end{verbatim}
+	\item[(9.17)] What is cache coherency?
+	\item[\textbullet] Cache coherency is the state of a piece of data in cache versus
+		the state of that same piece of data in main memory. Since data living in
+		the cache also exists in the main store, both copies must be updated when
+		the processor modifies the data. If the data in one is updated but data in
+		the other has not yet been updated, the old data may be grabbed and used
+		further.
 
-	\item[(9.22)] Write an ARM assembly language program to determine whether a string
-		of characters with and odd length is a palindrome under the following
-		constraints: The string of ASIC-encoded characters is stored in memory, At
-		the start of the program, register r1 contains the address of the first
-		character in the string, and r2 contains the address of the last
-		character. On exit from the program, register r0 contains a 0 if the
-		string is not a palindrome, and 1 if it is.
-		\\
-		\begin{verbatim}
-		START:                  ; start of loop
-		CMP    r1, r2           ; check if registers are pointing to same location
-		MOVEQ  r0, #1           ; load immediate 1 into r0 if same location
-		BEQ    END              ; jump to end of loop
-		LDR    r3, [r1], #4     ; load data at location in r1 to r3, increment r1
-		LDR    r4, [r2], #-4    ; load data at location in r2 to r4, decrement r2
-		CMP    r3, r4           ; compare data at those locations
-		MOVNE  r0, #0           ; store immediate 0 to r0 if not same character
-		BNE    END              ; jump to end of loop
-		B      START            ; jump to start of loop
-		END:                    ; end of loop, continue with program
-		\end{verbatim}
-	\item[(9.23)]
-	\item[(9.26)]
+	\item[(9.22)] Why is it harder to design a data cache than an instruction cache?
+	\item[\textbullet] Because an entry in the instruction cache is never modified
+		outside of the initial swapping in. Additionally, the instructions that
+		are overwritten in the I-cache don't matter anymore, as the program
+		doesn't change during its execution.
+
+	\item[(9.23)] When a CPU writes to cache, both the item in the cache and the
+		corresponding item in the memory must be updated. If data is not in the
+		cache, it must be fetched from memory and loaded in the cache. If $t_{1}$
+		is the time taken to reload the cache on a miss, show that the effective
+		average access time of the memory system is given by \\ \\
+		$t_{avg}=ht_{c}+(1-h)t_{m}+(1-h)t_{1}$
+	\item[\textbullet] The average access time assuming no cache reload is:\\
+		$t_{avg}=ht_{c}+(1-h)t_{m}$,\\
+		meaning the cache access time multiplied by the hit percentage plus the
+		memory access time multiplied by the cache-miss percentage.
+	\item[\textbullet] Now, assuming the cache takes time to reload after miss, that
+		time must simply be added to our existing access time, giving:\\
+		$t_{avg}=ht_{c}+(1-h)t_{m}+(1-h)t_{1}$,\\
+		where our access time is the cache-hit percentage multiplied by the time
+		taken for cache hit plus cache-miss percentage multiplied by the time
+		taken for memory access plus cache-miss percentage multiplied by the time
+		taken to reload the cache on miss.
+
+	\item[(9.26)] A system has a level 1 cache and a level 2 cache. The hit rate of
+		the level 1 cache is 90\%, and the hit rate of the level 2 cache is 80\%.
+		An access to level 1 cache requires one cycle, an access to level 2 cache
+		requires four cycles, and an access to main store requires 50 cycles. What
+		is the average access time?
+	\item[\textbullet]
+		$t_{avg}=h_{1}t_{c1}+(1-h_{1})h_{2}t_{c2}+(1-h_{1})(1-h_{2})t_{m}=.9\times1+.1\times.8\times4+.1\times.2\times50=$ \textbf{2.22 cycles}
+
 	\item[(9.28)]
+
 	\item[(9.35)]
+
 	\item[(9.41)]
+
 	\item[(9.42)]
+
 	\item[(9.43)]
+
 	\item[(9.45)]
+
 	\item[(9.46)]
+
 	\item[(9.57)]
 
 \end{enumerate}
