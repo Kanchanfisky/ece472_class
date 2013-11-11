@@ -177,21 +177,80 @@
 	\item[\textbullet]
 		$t_{avg}=h_{1}t_{c1}+(1-h_{1})h_{2}t_{c2}+(1-h_{1})(1-h_{2})t_{m}=.9\times1+.1\times.8\times4+.1\times.2\times50=$ \textbf{2.22 cycles}
 
-	\item[(9.28)]
+	\item[(9.28)] In the context of of multilevel caches, what is the difference
+		between a local miss rate and a global miss rate?
+	\item[\textbullet] A local miss rate is the miss rate of a given cache independent
+		of the miss rates of the rest. The global miss rate is the miss rate of
+		all present caches, or the complement of the total memory access rate.
 
-	\item[(9.35)]
+	\item[(9.35)] A 64-bit processor has an 8-MB, four-way set-associative cache with
+		32-byte lines. How is the address arranged in terms of set, line, and
+		offset bits?
+	\item[\textbullet] 
 
-	\item[(9.41)]
+	\item[(9.41)] What are the fundamental differences between cache memory as found
+		in a CPU and cache memory as found in a hard disk drive?
+	\item[\textbullet] CPU cache holds lines, hard disk cache holds pages.
 
-	\item[(9.42)]
+	\item[(9.42)] What are the differences between write-back and write-through
+		caches, and what are the implications for system performance?
+	\item[\textbullet] Write-through caching is when the main memory is updated at the
+		same time as the cache is loaded. This is the lower performance method, as
+		the write time to memory is much slower than write time to cache.
+	\item[\textbullet] Write-back caching is when main memory is updated only when the
+		cache is going to eject a line, which will be written back to main memory.
+		This is the higher performance method, as fewer slow memory operations
+		will be taking place.
 
-	\item[(9.43)]
+	\item[(9.43)] A computer with a 32-bit address architecture has a memory
+		management system with single-level 4KB page tables. How much memory space
+		must be devoted to the page tables?
 
-	\item[(9.45)]
+	\item[(9.45)] A computer runs an instruction set with the characteristics in the
+		following table:\\ \\
+		\begin{tabular}{ l l l }
+			Class & Instruction Frequency & Cycles \\
+			\hline
+			Arithmetic Operations & 70\% & 1 \\
+			Conditional Operations & 15\% & 2 \\
+			Load & 10\% & 2 \\
+			Store & 5\% & 2 \\
+			Hit Rate & 95\% & \\
+			Cost of Cache Miss (Read) & & 10 \\
+			Write-Through Time & & 5 \\
+			(Writes to Memory Are Not Buffered) & & \\ 
+		\end{tabular} \\ \\
+		What is the average number of cycles per instruction?
+	\item[\textbullet] Do math here
 
-	\item[(9.46)]
+	\item[(9.46)] Consider the following code that accesses three values in memory
+		scalar integers x and s, and an integer vector y[i]. What is the memory
+		latency in clock cycles for a trip round the loop (after the first
+		iteration)? Assume that the array is not cached and each new access to the
+		array results in a miss. The system has both L1 and L2 caches. The access
+		time of the L1 cache is two cycles, the access time of the L2 cache is 6
+		cycles, and main memory has an access time of 50 cycles. In this case all
+		memory and cache memory access take place in parallel.
+		\begin{verbatim}
+		for (i = 0; i < 100; i++) {
+		        x = y[i];
+		        s = s + x;
+		}
+		\end{verbatim}
+	\item[\textbullet] More math possibly?
 
-	\item[(9.57)]
+	\item[(9.57)] A computer with a 24-bit address bus has a main memory size of 16 MB
+		and a cache size of 64KB. The wordlength is two bytes.
+	\item[a)] What is the address format for a direct-mapped cache with a line size of
+		32 words?
+	\item[\textbullet] asdf
+	\item[b)] What is the address format for a fully associative cache with a line
+		size of 32 words?
+	\item[\textbullet] asdf
+	\item[c)] What is the address format for a four-way set-associative cache with a
+		line size of 16 words?
+	\item[\textbullet] asdf
+
 
 \end{enumerate}
 
