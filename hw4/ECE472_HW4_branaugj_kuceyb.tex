@@ -47,68 +47,83 @@
 \hfill CS 472 HW 4
 
 \begin{enumerate}
-	\item[(9.2)] Why is the program counter a \textit{pointer} and not a
-		\textit{counter}?
-	\item[\textbullet] If the program counter was a \textit{counter}, the instructions
-		would have to be sequential. Since the program counter is a
-		\textit{pointer}, the instructions can be located in any order since the
-		PC simply gets the next address, enabling branching.
+	\item[(9.2)] Why do computers use cache memory?
+	\item[\textbullet] Computers use cache memory because it transfers data quickly,
+		and has a much larger capacity than the processor's registers. Cache
+		memory is slightly slower than registers, but is significantly faster than
+		RAM. There are only a handful of registers available, whereas cache can
+		range from kB to MB. RAM, however, is usually available in the order of
+		GB.
 
-	\item[(9.3)] Explain the function of the following registers in a CPU:
-	\begin{enumerate}
-		\item[-] PC (program counter): The PC holds the address of the
-			\textit{next} instruction to be fetched from memory
-		\item[-] MAR (memory address register): the MAR holds the address of the
-			memory location that is being accessed for reading/writing during 
-			the current execute cycle
-		\item[-] MBR (memory buffer register): the MBR holds the data that was
-			read from or is about to be written to the location pointed to by
-			the address in the MAR
-		\item[-] IR (instruction register): the IR holds the instruction being
-			currently executed
-	\end{enumerate}
+	\item[(9.3)] What is the meaning of the following terms?
+	\item[\textbullet] Temporal locality
+	\item[-] Temporal locality describes the number of times a memory address is
+		accessed within some amount of time.
+	\item[\textbullet] Spatial locality
+	\item[-] Spatial locality is a term to describe the physical closeness of related
+		memory addresses.
 
-	\item[(9.4)] For each of the following 6-bit operations, calculate the values of
-		the C, Z, V, and N flags.
-		\\
-		\\
-		\includegraphics[scale=0.5]{problem3.jpg}
+	\item[(9.4)] From first principles, derive an expression for the speedup ratio of
+		a memory system with cache (assume the hit ratio is h and the ratio of the
+		main storage access time to cache access time is k, where k \textless\ 1). 
+		Assume that the system is an ideal system and that you don't have to worry 
+		about the effect of clock cycle times.
+	\item[\textbullet] $S=\frac{1}{1-h(1-k)}\ ,\ k = \frac{t_{c}}{t_{m}}$
 
-	\item[(9.5)] Why does the ARM provide a reverse subtract instruction \textit{RSB
-		r0, r1, r2} that implements \textit{[r0] = [r2] - [r1]} when the normal
-		subtraction instruction \textit{SUB  r0, r2, r1} will do exactly the same
-		job?
-	\item[\textbullet] Both operations only allow the last operand to be a flexible
-		value. Flexible operands can be constants or registers with applied 
-		shifts, instead of just registers. In this example, SUB allows r1 to be 
-		flexible, while RSB allows r2 to be flexible. 
+	\item[(9.5)] For the following ideal systems, calculate the speedup ratio S. In
+		each case, $t_{c}$ is the access time of the cache memory, $t_{m}$ is the
+		access time of the main store, and h is the hit ratio.
+	\item[a)] $t_{m} = 70ns, t_{c} = 7ns, h = .9$ \\ \\
+		$S=\frac{1}{1-.9(1-\frac{7}{70})}=$ \textbf{5.263}
+	\item[b)] $t_{m} = 60ns, t_{c} = 3ns, h = .9$ \\ \\
+		$S=\frac{1}{1-.9(1-\frac{3}{60})}=$ \textbf{6.897}
+	\item[c)] $t_{m} = 60ns, t_{c} = 3ns, h = .8$ \\ \\
+		$S=\frac{1}{1-.8(1-\frac{3}{60})}=$ \textbf{4.167}
+	\item[d)] $t_{m} = 60ns, t_{c} = 3ns, h = .97$ \\ \\
+		$S=\frac{1}{1-.97(1-\frac{3}{60})}=$ \textbf{12.739}
 
-	\item[(9.6)] ARM instructions have a 12-bit literal. Instead of permitting a word
-		in the range 0 to $2^{12}$-1, the ARM uses an 8-bit format for the integer
-		and a 4-bit alignment field that allows the integer to be shifted in steps
-		of 2. What are the advantages and disadvantages of this mechanism in
-		comparison with a straight 12-bit integer?
-	\item[\textbullet] The advantage is that the form is $(8-bit) \times  2^{4-bit}$ 
-		allows for numbers larger than $2^{12}$-1. The disadvantage is that
-		not all numbers between 255 and $255 \times 2^{15}$ cannot be represented 
-		because not all numbers are multiples of this form.
+	\item[(9.6)] For the following ideal systems, calculate the hit ratio h required to
+		achieve the stated speedup ratio S.
+	\item[a)] $t_{m} = 60ns, t_{c} = 3ns, S = 1.1$ \\ \\
+		$h=\frac{1-\frac{1}{S}}{1-\frac{t_{c}}{t_{m}}}=\frac{1-\frac{1}{1.1}}{1-\frac{3}{30}}=$
+		\textbf{0.096}
+	\item[b)] $t_{m} = 60ns, t_{c} = 3ns, S = 2.0$ \\ \\
+		$h=\frac{1-\frac{1}{2}}{1-\frac{3}{60}}=$ \textbf{0.526}
+	\item[c)] $t_{m} = 60ns, t_{c} = 3ns, S = 5.0$ \\ \\
+		$h=\frac{1-\frac{1}{5}}{1-\frac{3}{60}}=$ \textbf{0.842}
+	\item[d)] $t_{m} = 60ns, t_{c} = 3ns, S = 15.0$ \\ \\
+		$h=\frac{1-\frac{1}{15}}{1-\frac{3}{60}}=$ \textbf{0.982}
 
-	\item[(9.8)] Write one or more ARM instructions that will clear bits 20 to 25
-		inclusive in register r0. All the other bits of r0 should remain
-		unchanged.
-	\item[\textbullet] AND\ \ \ r0, r0, \#0xFC0FFFFF
-	\item[\textbullet] ANDS\ \ \ r0, r0, \#0xFC0FFFFF (sets status register)
+	\item[(9.8)] For the following systems that use a clocked microprocessor,
+		calculate the maximum speedup ratio you could expect to see as h approaches
+		100\%.\\ \\
+		$S=\frac{1}{1-1(1-\frac{t_{c}}{t_{m}})}=\frac{1}{\frac{t_{c}}{t_{m}}}=\frac{t_{m}}{t_{c}}$
+		, where $t_{m}\ and\ t_{c}$ must be integer multiples of the time taken for
+		one clock cycle.
+	\item[a)] $t_{cyc} = 20ns, t_{m} = 75ns, t_{c} = 15ns$ \\ \\
+		$t_{m}=75ns \rightarrow t_{m}=4\ cycles$ \\
+		$t_{c}=15ns \rightarrow t_{c}=1\ cycle$ \\
+		$S=\frac{4}{1}=$ \textbf{4}
 
-	\item[(9.11)] This is a classic problem of assembly language programming. Write a
-		sequence of ARM instructions that swap the contents of registers r0 and r1
-		without using any additional registers or memory storage (that is, you
-		can't move r1 to a temporary location).
-	\item[\textbullet] This can be done using the XOR-swap algorithm:
-		\begin{enumerate}
-			\item[-] EOR\ \ \ r0, r0, r1
-			\item[-] EOR\ \ \ r1, r0, r1
-			\item[-] EOR\ \ \ r0, r0, r1
-		\end{enumerate}
+	\item[b)] $t_{cyc} = 20ns, t_{m} = 75ns, t_{c} = 25ns$ \\ \\
+		$t_{m}=75ns \rightarrow t_{m}=4\ cycles$ \\
+		$t_{c}=25ns \rightarrow t_{c}=2\ cycle$ \\
+		$S=\frac{4}{2}=$ \textbf{2}
+
+	\item[c)] $t_{cyc} = 10ns, t_{m} = 75ns, t_{c} = 15ns$ \\ \\
+		$t_{m}=75ns \rightarrow t_{m}=8\ cycles$ \\
+		$t_{c}=15ns \rightarrow t_{c}=2\ cycle$ \\
+		$S=\frac{8}{2}=$ \textbf{4}
+
+	\item[(9.11)] In a direct-mapped cache memory system, what is the meaning of the
+		following terms.
+	\item[\textbullet] Word: the number of bytes a processor core can process during
+		one clock cycle, usually no larger than 64 bits
+	\item[\textbullet] Line: the minimum amount of data transferable between cache
+		and main memory at a time, equal to a small number of words
+	\item[\textbullet] Set: a collection of lines equal to $\frac{size\ of\ main\
+		memory}{size\ of\ cache}$
+
 	\item[(9.12)] What is the binary encoding of the following instructions?
 		\begin{enumerate}
 			\item[a)] STRB\ \ \ r1, [r2]
