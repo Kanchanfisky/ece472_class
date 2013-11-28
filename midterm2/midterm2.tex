@@ -91,8 +91,25 @@
 	time.
 
 \item (10 points) 9.26
+	A system has a level 1 cache and a level 2 cache. The hit rate of the
+	level 1 cache is 90\%, and the hit rate of the level 2 cache is 80\%. An access to
+	level 1 cache requires one cycle, an access to level 2 cache requires four cycles,
+	and an access to main memory requires 50 cycles. What is the average access time?
+\item[\textbullet] The average access time can be expressed as a sum of the various access
+	times multiplied by their respective occurrence rates: \\
+	$t_{avg}=h_{1}t_{c1}+(1-h_{1})h_{2}t_{c2}+(1-h_{1})(1-h_{2})t_{m}$
+	where $h_{1}$ is the l1 cache hit rate, $h_{2}$ is the l2 cache hit rate, $t_{c1}$
+	is the l1 cache access time, $t_{c2}$ is the l2 cache access time, and $t_{m}$ is
+	the main memory access time. On average, the l1 cache access occurs as
+	frequently as the l1 hit rate, the l2 cache access occurs as frequently as
+	the l1 miss rate, and the main memory access occurs as frequently as the l2 miss
+	rate and the l1 miss rate. Plugging in values gives: \\
+	$t_{avg}=.9\times1+.1\times.8\times4+.1\times.2\times50=$ \textbf{2.22 cycles}
 
 \item (10 points) 9.35
+	A 64-bit processor has an 8-MB, four-way set-associative cache with 32-byte lines.
+	How is the address arranged in terms of set, line, and offset bits?
+\item[\textbullet] 
 
 \item (10 points) Assume a 64-bit virtual address and a 64-bit physical address. The page
   size is 4KB. How many total entries are there in the page table? Express your answer in
