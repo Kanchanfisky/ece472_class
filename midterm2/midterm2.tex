@@ -1,0 +1,116 @@
+
+\documentclass[letterpaper,10pt,onecolumn,titlepage]{article}
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+%\usepackage{balance}
+%\usepackage[TABBOTCAP, tight]{subfigure}
+%\usepackage{enumitem}
+\usepackage{pstricks, pst-node, pst-tree}
+
+
+\usepackage{geometry}
+\geometry{textheight=8.5in, textwidth=6in}
+
+% random comment
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+% please replace your name here...
+\def\name{Jacob Branaugh}
+
+\parindent = 0.0 in
+\parskip = 0.2 in
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = false,
+  urlcolor = black,
+  pdfauthor = {Jacob Branaugh},
+  pdfkeywords = {cs472 ``computer architecture'' MIPS},
+  pdftitle = {CS 472 Midterm 2},
+  pdfsubject = {CS 472 Midterm 2},
+  pdfpagemode = UseNone
+}
+
+\pagestyle{empty}
+\begin{document}
+
+\noindent {\large \bf Name: \hfill CS/ECE 472/572 Midterm 2}
+
+\noindent {\large \bf ID\#: }
+
+%\emph{All answers should be typed directly below the questions. All work should be shown.
+%  Answers with no work shown will be considered cheating. The exam should be typeset via
+%  \LaTeX. All questions should be included in the exam. Yes, I am requiring that you do
+%  this. It's good practice with \LaTeX, and you have an example as to how it should look
+%  (see hw1.tex on the class website). Remove all of these notes from your final
+%  submission.}
+%
+%\emph{This is an open book exam. As it is a take home exam, you are on the honor code.
+%  Use your book, use your notes, don't use your friends.}
+%
+%\emph{There are 110 points possible on this exam.}
+%
+%\emph{Be detailed in your answers. Remember, this is a take home exam, so implied answers
+%  will not be considered. Take the time and make everything explicit!}
+
+
+\begin{enumerate}
+
+\item (10 points) 9.23
+	When a CPU writes to the cache, both the item in the cache and the corresponding
+	item in the memory must be updated. If data is not in the cache, it must be
+	fetched from memory and loaded in the cache. If $t_{1}$ is the time taken to
+	reload the cache on a miss, show that the effective average access time of the
+	memory system is given by \\
+	$t_{ave} = ht_{c} + (1-h)t_{m} + (1-h)t_{1}$
+
+\item[\textbullet] Assuming the cache does not have to be reloaded, the average
+	access time is equal to \\
+	$t_{ave} = ht_{c} + (1-h)t_{m}$ \\
+	In this case, the cache does take time to reload. For a single access, the time
+	taken to reload the cache must be added to the no-miss access time. Since we are
+	concerned about the average time, the cache reload time multiplied by the cache
+	miss ratio must be added to the prior equation. This gives us \\
+	$t_{ave} = ht_{c} + (1-h)t_{m} + (1-h)t_{1}$ \\
+	which is the hit ratio multiplied by the cache access time plus the miss ratio
+	multiplied the memory access time plus the miss ratio multiplied by cache reload
+	time.
+
+\item (10 points) 9.26
+
+\item (10 points) 9.35
+
+\item (10 points) Assume a 64-bit virtual address and a 64-bit physical address. The page
+  size is 4KB. How many total entries are there in the page table? Express your answer in
+  powers of 2.
+
+\item (10 points) 7.16 
+
+\item (10 points) 9.12
+
+\item (10 points) 7.18
+
+\item (10 points) 6.13
+
+\item (15 points) 7.35
+
+\item (15 points) 7.38
+
+\end{enumerate}
+
+\end{document}
+
