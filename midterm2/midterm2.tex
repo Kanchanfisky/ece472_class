@@ -48,9 +48,9 @@
 \pagestyle{empty}
 \begin{document}
 
-\noindent {\large \bf Name: \hfill CS/ECE 472/572 Midterm 2}
+\noindent {\large \bf Name: Jacob Branaugh \hfill CS/ECE 472/572 Midterm 2}
 
-\noindent {\large \bf ID\#: }
+\noindent {\large \bf ID\#: 931-724-634}
 
 %\emph{All answers should be typed directly below the questions. All work should be shown.
 %  Answers with no work shown will be considered cheating. The exam should be typeset via
@@ -70,7 +70,7 @@
 
 \begin{enumerate}
 
-\item (10 points) 9.23
+\item (10 points) 9.23 \\
 	When a CPU writes to the cache, both the item in the cache and the corresponding
 	item in the memory must be updated. If data is not in the cache, it must be
 	fetched from memory and loaded in the cache. If $t_{1}$ is the time taken to
@@ -90,14 +90,14 @@
 	multiplied the memory access time plus the miss ratio multiplied by cache reload
 	time.
 
-\item (10 points) 9.26
+\item (10 points) 9.26 \\
 	A system has a level 1 cache and a level 2 cache. The hit rate of the
 	level 1 cache is 90\%, and the hit rate of the level 2 cache is 80\%. An access to
 	level 1 cache requires one cycle, an access to level 2 cache requires four cycles,
 	and an access to main memory requires 50 cycles. What is the average access time?
 \item[\textbullet] The average access time can be expressed as a sum of the various access
 	times multiplied by their respective occurrence rates: \\
-	$t_{avg}=h_{1}t_{c1}+(1-h_{1})h_{2}t_{c2}+(1-h_{1})(1-h_{2})t_{m}$
+	$t_{avg}=h_{1}t_{c1}+(1-h_{1})h_{2}t_{c2}+(1-h_{1})(1-h_{2})t_{m}$ \\
 	where $h_{1}$ is the l1 cache hit rate, $h_{2}$ is the l2 cache hit rate, $t_{c1}$
 	is the l1 cache access time, $t_{c2}$ is the l2 cache access time, and $t_{m}$ is
 	the main memory access time. On average, the l1 cache access occurs as
@@ -106,26 +106,106 @@
 	rate and the l1 miss rate. Plugging in values gives: \\
 	$t_{avg}=.9\times1+.1\times.8\times4+.1\times.2\times50=$ \textbf{2.22 cycles}
 
-\item (10 points) 9.35
+\item (10 points) 9.35 \\
 	A 64-bit processor has an 8-MB, four-way set-associative cache with 32-byte lines.
 	How is the address arranged in terms of set, line, and offset bits?
-\item[\textbullet] 
+\item[\textbullet] With a four way set associative 8MB cache, each set will be 2MB in
+	size. 32 byte lines means the number of lines will be $\frac{2^{30}}{2^{6}}$, or
+	$2^{24}$. This means that 24 of the 64 bits will be required for the line number.
+	Since the line size is 32 bytes, or $2^{6}$, 6 bits will be required for the line
+	offset. Since the cache has four, or $2^{2}$, sets, 2 bits will be required for
+	the set number.
 
 \item (10 points) Assume a 64-bit virtual address and a 64-bit physical address. The page
   size is 4KB. How many total entries are there in the page table? Express your answer in
-  powers of 2.
+  powers of 2. \\
 
-\item (10 points) 7.16 
+\item (10 points) 7.16  \\
 
-\item (10 points) 9.12
+\item (10 points) 9.12 \\
+	How is data in main store mapped on to each of the following?
+	\begin{enumerate}
+		\item[a)] Direct-mapped Cache: \\
+			In a direct mapped cache, the main store is split into a number of
+			equal sets, where each set is the size of the cache. From there,
+			the sets are divided into lines, where the number of lines in the
+			set is equal to the total number of lines in the cache.
+		\item[b)] Fully-Associative Cache: \\
+			In a fully associative cache, lines are taken from main memory and
+			stored directly in cache. Each line's location is tagged with an
+			address, and each line has an associated data validity bit.
+		\item[c)] Set-Associative Cache: \\
+			In a set associative cache, the cache is broken up into n sets for
+			an n-way associative cache. A line has the same address across all
+			n sets. When searching for an item, the sets are searched in
+			parallel. When a match is found in any set, the search ends.
+	\end{enumerate}
 
-\item (10 points) 7.18
+\item (10 points) 7.18 \\
+	A processor executes an instruction in the following six stages. The time required
+	by each stage in picoseconds is given for each stage.\\
+	\\
+	\begin{tabular}{ l l l }
+		IF & Instruction Fetch & 300ps \\
+		ID & Instruction Decode & 150ps \\
+		OF & Operand Fetch & 250ps \\
+		OE & Execute & 350ps \\
+		 M & Memory Access & 700ps \\
+		OS & Operand Store (writeback) & 200ps \\
+	\end{tabular} \\
 
-\item (10 points) 6.13
+	\begin{enumerate}
+		\item[a.] What is the time to execute an instruction if the processor is
+			not pipelined? \\
+			If the processor is not pipelined, each instruction will have to
+			go through the whole fetch/execute process before the next can
+			start. This gives the time to execute an instruction as: \\
+			$300ps + 150ps + 250ps + 350ps + 700ps + 200ps =$ \textbf{1950ps}
+		\item[b.]
+	\end{enumerate}
 
-\item (15 points) 7.35
+\item (10 points) 6.13 \\
+	A computer has the following parameters:\\
+	\\
+	\begin{tabular}{ l r c }
+		Operation & Frequency & Cycles \\
+		\hline
+		Arithmetic/logic instructions & 65\% & 1 \\
+		     Register load operations & 10\% & 5 \\
+		    Register store operations &  5\% & 2 \\
+		      All branch instructions & 20\% & 8 \\
+	\end{tabular} \\ \\
+	If the average performance of the computer (in terms of its CPI) is to be
+	increased by 20\% while executing the same instruction mix, what target
+	must be achieved for the cycles per conditional branch instruction?
+	\item[\textbullet] The CPI for branch instructions executed by machine A is as 
+		follows: \\
+		$CPI_{A} = \frac{freq_{ar}}{100} \times cyc_{ar} + 
+			   \frac{freq_{ld}}{100} \times cyc_{ld} + 
+			   \frac{freq_{st}}{100} \times cyc_{st} + 
+			   \frac{freq_{br}}{100} \times cyc_{br}$ \\
+		When values are plugged in, we get: \\
+		$CPI_{A} = .65 + .5 + .1 + 1.6 = 2.85$ 
+	\item[\textbullet] We know that a 20\% performance increase is desired. This means
+		our new CPI will be equal to our old CPI multiplied by 1.2, or\\
+		$CPI_{B} = \frac{CPI_{A}}{1.2} = 2.375$
+	\item[\textbullet] If we reorder the equation from the first bullet for finding
+		the branch instruction cycles using our new CPI, we get:\\
+		$cyc_{br} = \frac{CPI_{B} - 
+				  \frac{freq_{ar}}{100} \times cyc_{ar} - 
+				  \frac{freq_{ld}}{100} \times cyc_{ld} - 
+			  	  \frac{freq_{st}}{100} \times cyc_{st}}
+				  {freq_{br}}$ \\
+		Plugging values in gives us: \\
+		$cycles_{branch} = \frac{2.375-.65-.5-.1}{.2} = 5.625$ \\
+		We can only have integer multiples of clock cycles. Since 5.625 is our
+		minimum target, 6 cycles will be too slow. This means that to see a 20\%
+		performance increase, we need to see branch instructions being executed in 
+		\textbf{5 cycles}
 
-\item (15 points) 7.38
+\item (15 points) 7.35 \\
+
+\item (15 points) 7.38 \\
 
 \end{enumerate}
 

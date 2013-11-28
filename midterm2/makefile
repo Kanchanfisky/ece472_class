@@ -29,4 +29,9 @@ html:
 	rm ${HTML}.*
 	rm -rf ${HTML}
 
-
+clean:
+	rm ${TARGET}.aux
+	rm ${TARGET}.dvi
+	rm ${TARGET}.log
+	rm ${TARGET}.out
+	rm ${TARGET}.ps
