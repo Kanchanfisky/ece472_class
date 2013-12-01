@@ -131,7 +131,10 @@
 	without pipelining to the execution time with pipelining) of a pipelined processor
 	in terms of the number of stages in the pipeline \textit{m} and the number of
 	instructions to be executed \textit{N}.
-\item[\textbullet] 
+\item[\textbullet] $t_{no} = m \times N$ (each instruction executes sequentially)
+\item[\textbullet] $t_{piped} = m + (N - 1)$ (the first instruction of m stages has to 
+	finish, then an instruction of the remaining N-1 finishes every cycle)
+\item[\textbullet] $S = \frac{t_{piped}}{t_{no}} = \frac{m+N-1}{mN}$
 
 \item (10 points) 9.12 \\
 	How is data in main store mapped on to each of the following?
@@ -172,7 +175,29 @@
 			go through the whole fetch/execute process before the next can
 			start. This gives the time to execute an instruction as: \\
 			$300ps + 150ps + 250ps + 350ps + 700ps + 200ps =$ \textbf{1950ps}
-		\item[b.]
+		\item[b.] What is the time taken to fully execute an instruction assuming
+			that this structure is pipelined in six stages and that there is an
+			additional 20ps per stage due to the pipeline latches?\\
+			If the processor is pipelined in six stages, the total time is
+			equal to the total time from part a, but with an extra 20ps for
+			each six stages (120ps total), or \textbf{2070ps}
+		\item[c.] Once the pipeline is full, what is the average instruction
+			rate?\\
+			If the pipeline is full, an instruction will be completed every
+			cycle. On average, the limiting factor will be the slowest cycle,
+			with the addition of the time taken to latch the pipeline.
+			Since the slowest cycle is the memory access at 700ps, an 
+			instruction will be completed every \textbf{720ps}
+		\item[d.] Suppose that 25\% of instructions are branch instructions that
+			are taken and cause a 3 cycle penalty, what is the effective
+			instruction execute time?\\
+			Assuming the added conditions have carried through the problem,
+			non branching instructions will take 720ps (from part c) and occur
+			75\% of the time. Branching instructions will take an additional 3
+			cycles on top of the existing instruction cycle, giving 720ps 4
+			times (or 2880ps) occurring 25\% of the time. Averaging this
+			gives\\
+			$\frac{720+720+720+2880}{4} =$ \textbf{1260ps}
 	\end{enumerate}
 
 \item (10 points) 6.13 \\
@@ -222,14 +247,15 @@
 	required to execute the following code assuming that internal forwarding is not
 	used?
 	\begin{verbatim}
-	MUL   r0, r1, r2
-	ADD   r3, r1, r4
-	ADD   r5, r1, r6
-	ADD   r6, r5, r7
-	LDR   r1, [r2]
+	(1) MUL   r0, r1, r2
+	(2) ADD   r3, r1, r4
+	(3) ADD   r5, r1, r6
+	(4) ADD   r6, r5, r7
+	(5) LDR   r1, [r2]
 	\end{verbatim}
-\item[\textbullet] asdf
+	\includegraphics[width=5in]{7_35.eps}
 
+%%%%%%%%%%%%%%%%%% NOT COMPLETE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \item (15 points) 7.38 \\
 	the following table gives a sequence of instructions that are performed on a
 	four-stage pipelined computer. Detect all hazards. For example, in instruction m
@@ -247,6 +273,7 @@
 		6 & ADD r1, r6, r6 &   &   &   \\
 		7 & ADD r8, r1, r5 &   &   &   \\
 	\end{tabular}\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{enumerate}
 
