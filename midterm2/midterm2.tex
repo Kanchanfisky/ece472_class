@@ -119,12 +119,13 @@
 \item (10 points) Assume a 64-bit virtual address and a 64-bit physical address. The page
 	size is 4KB. How many total entries are there in the page table? Express your
 	answer in powers of 2.
-\item[\textbullet] The table is given as $4KB = 4*2^{10} = 2^{2}*2^{10} = 2^{12}$ bytes.
-\item[\textbullet] Since the physical and virtual addresses are the same size, one address
-	in ram and one address in the page table are the same size.
-\item[\textbullet] A 64-bit address is equal to 8 bytes, or $2^{3}$ bytes.
-\item[\textbullet] Therefore, the table can fit $\frac{2^{12}}{2^{3}}$, or \textbf{512}
-	entries.
+\item[\textbullet] The page size is given as $4KB = 4*2^{10} = 2^{2}*2^{10} = 2^{12}$ 
+	bytes.
+\item[\textbullet] Since the physical and virtual addresses are the same size, the
+	addresses map one to one.
+\item[\textbullet] This means that the page table must contain a page for each address,
+	meaning the number of entries will be $\frac{2^{64}}{2^{12}} =$ 
+	\textbf{$2^{52}$ entries}.
 
 \item (10 points) 7.16  \\
 	Derive an expression for the speedup ratio (i.e., the ratio of the execution time
@@ -178,9 +179,12 @@
 		\item[b.] What is the time taken to fully execute an instruction assuming
 			that this structure is pipelined in six stages and that there is an
 			additional 20ps per stage due to the pipeline latches?\\
-			If the processor is pipelined in six stages, the total time is
-			equal to the total time from part a, but with an extra 20ps for
-			each six stages (120ps total), or \textbf{2070ps}
+			Since the processor is in the act of filling the pipeline, the
+			clock must be able to accomodate the slowest stage. This means
+			that the clock rate will be 700ps, as this is the slowest stage.
+			At this point, the time to execute a single instruction will be
+			700ps times the number of stages, plus 20ps per stage. This gives
+			$(700ps + 20ps) \times 6 =$ \textbf{4320ps}
 		\item[c.] Once the pipeline is full, what is the average instruction
 			rate?\\
 			If the pipeline is full, an instruction will be completed every
