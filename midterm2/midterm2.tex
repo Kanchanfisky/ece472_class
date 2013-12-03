@@ -124,8 +124,7 @@
 \item[\textbullet] Since the physical and virtual addresses are the same size, the
 	addresses map one to one.
 \item[\textbullet] This means that the page table must contain a page for each address,
-	meaning the number of entries will be $\frac{2^{64}}{2^{12}} =$ 
-	\textbf{$2^{52}$ entries}.
+	meaning the number of entries will be $\frac{2^{64}}{2^{12}} =$ $2^{52}$ entries.
 
 \item (10 points) 7.16  \\
 	Derive an expression for the speedup ratio (i.e., the ratio of the execution time
@@ -135,7 +134,7 @@
 \item[\textbullet] $t_{no} = m \times N$ (each instruction executes sequentially)
 \item[\textbullet] $t_{piped} = m + (N - 1)$ (the first instruction of m stages has to 
 	finish, then an instruction of the remaining N-1 finishes every cycle)
-\item[\textbullet] $S = \frac{t_{piped}}{t_{no}} = \frac{mN}{m+N-1}$
+\item[\textbullet] $S = \frac{t_{no}}{t_{piped}} = \frac{mN}{m+N-1}$
 
 \item (10 points) 9.12 \\
 	How is data in main store mapped on to each of the following?
@@ -258,7 +257,7 @@
 	(5) LDR   r1, [r2]
 	\end{verbatim}
 	\includegraphics[width=5in]{images/7_35.eps} \\
-	{\Large{\textbf{9 cycles}}}
+	{\Large{\textbf{17 cycles}}}
 
 %%%%%%%%%%%%%%%%%% NOT COMPLETE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \item (15 points) 7.38 \\
@@ -282,7 +281,7 @@
 		7 & ADD r8, r1, r5 & 6, r1  &        &        \\
 	\end{tabular}\\
 	\\
-	%\includegraphics[width=5in]{images/7_38.eps} \\
+	\includegraphics[width=5in]{images/7_38.eps} \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{enumerate}
