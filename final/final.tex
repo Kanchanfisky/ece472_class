@@ -1,0 +1,141 @@
+
+\documentclass[letterpaper,10pt,onecolumn,titlepage]{article}
+
+\usepackage{graphicx}                                        
+\usepackage{amssymb}                                         
+\usepackage{amsmath}                                         
+\usepackage{amsthm}                                          
+
+\usepackage{alltt}                                           
+\usepackage{float}
+\usepackage{color}
+\usepackage{url}
+
+%\usepackage{balance}
+%\usepackage[TABBOTCAP, tight]{subfigure}
+%\usepackage{enumitem}
+\usepackage{pstricks, pst-node, pst-tree}
+
+
+\usepackage{geometry}
+\geometry{textheight=8.5in, textwidth=6in}
+
+% random comment
+
+\newcommand{\cred}[1]{{\color{red}#1}}
+\newcommand{\cblue}[1]{{\color{blue}#1}}
+
+\usepackage{hyperref}
+\usepackage{geometry}
+
+% please replace your name here...
+\def\name{Jacob Branaugh}
+
+\parindent = 0.0 in
+\parskip = 0.2 in
+
+%% The following metadata will show up in the PDF properties
+\hypersetup{
+  colorlinks = false,
+  urlcolor = black,
+  pdfauthor = {Jacob Branaugh},
+  pdfkeywords = {cs472 ``computer architecture''},
+  pdftitle = {CS 472 Final},
+  pdfsubject = {CS 472 Final},
+  pdfpagemode = UseNone
+}
+
+\pagestyle{empty}
+\begin{document}
+
+\noindent {\large \bf Name: Jacob Branaugh \hfill ECE 472 Final}
+
+\noindent {\large \bf ID\#: 931-724-634}
+
+%%%% INTRO %%%%
+\par
+In today's age, computers are ubiquitous. Most homes in the U.S. have at least one PC or
+laptop, single board computers are available for low prices, and microcontrollers can be
+found almost anywhere. But not all electronic devices are equal. Many different processor
+architectures exist and vary in different ways. In this course, we have been looking at
+and discussing the ARM, or Advanced RISC Machine, architecture. ARM is one of the most
+widely used architectures on the planet, comfortably dominating the mobile market (1). In
+an attempt to gain a greater understanding of the ARM architecture, it will be compared
+and contrasted against the PowerPC architecture.
+
+%%%% ARCHITECTURE HISTORY %%%%
+\par
+ARM, originally known as the Acorn RISC Machine, was first developed by Acorn Computers 
+in 1985 (2). While other companies such as Intel and AMD were developing larger scale
+chips, ARM was developing small scale simply due to start up budget issues. This early
+division from competing companies landed arm in its dominant position in the smaller scale
+market that it still holds today. ARM hit its stride in the early 90's, when it was
+approached by both TI and Samsung. As of 2013, ARM has reported production of 37 billion
+processors. ARM currently features the Cortex 32-bit architecture family, as well as
+the 64-bit ARMv8-A architecture as of 2011 (3). PowerPC, or Performance Optimization With
+Enhanced RISC-Performance Computing, was initially created in 1991 by Apple, IBM, and
+Motorola jointly. PowerPC is a RISC, superscalar architecture that was intended to be both
+low cost and high performance (4). The goal of PowerPC in the consumer market was an
+attempt to counter the popularity of Intel's CISC 80386, 80486, and upcoming Pentium
+processors. PowerPC had success in Apple machines, as well as in video game consoles of
+the 00's. Today, PowerPC exists as the Power ISA.
+
+%%%% INSTRUCTION SET DESIGN %%%%
+\par
+Both ARM and PowerPC are RISC architectures. RISC stands for Reduced Instruction Set
+Computing, and was designed with the idea in mind that simpler instruction are capable
+of providing higher performance through faster execution of instructions. ARM has many
+different ways it can address operations. ARM can address direct to memory, direct to a
+register, to an immediate, indirect to a register with optional offset and incrementing,
+and relative to the program counter (5). ARM address length in most flavors of the
+architecture are 32 bits, while ARMv8-A is 64 bit. PowerPC, on the other hand, can only address
+relative to the program counter, relative to a base register, and relative to a base
+register with an additional register as an index (6). PowerPC supports both 32 and 64 bit
+addresses. Both ARM and PowerPC can address using pages as small as 4KB.
+
+%%%% DATAPATH DESIGN %%%%
+\par
+The ARM architecture has 16 general purpose registers. However, not all are usable as
+general purpose registers. R13 contains the stack pointer, R14 contains the link register,
+and R15 contains the program counter. Outside of these three, registers R0 through R12 are
+available for use in a program. The PowerPC architecture has a total of 64 available
+registers, 32 of which being general purpose registers and 32 being floating point
+registers. ARM features a three stage pipeline, with the stages being fetch, decode, and
+execute. Most ARM instruction only require one cycle to execute. PowerPC has a 6 stage 
+pipeline, but some instruction may take up to 3 execute cycles (7). When a pipeline is full,
+an instruction is being completed every cycle, so the number of stages is irrelevant.
+However, since ARM has fewer stages than PowerPC, it will not take as long to refill the
+pipeline after flush. ARM does not use microcode, which allows it to run much more
+efficiently. PowerPC, on the other hand, does use microcode. This adds an additional level
+of power to the architecture, at the price of microcode being costly to execute.
+
+%%%% MEMORY SUBSYSTEM %%%%
+\par
+As previously discussed, both ARM and PowerPC have internal registers. ARM processors have
+16 general purpose registers, of which 13 are usable due to the stack pointer, link
+pointer, and program counter. PowerPC has a total of 64 registers, half being general
+purpose and half being floating point dedicated. While the first ARM processors did not
+have caches, modern ARM processors can have up to 64K L1 cache and up to 4M L2 cache
+depending on the processor core. The first PowerPC processor had a 32K L1 cache and
+support for an external L2 cache. Modern POWER processors used in servers and
+supercomputers can have up to 64K split L1 cache, 256K per core L2 cache, and 80M L3
+cache (8). ARM uses a two level page table for 4KB pages in 1MB sections, while PowerPC 
+uses parallel lookup through 4 or 8 sets.
+%%%% OTHER INTERESTING TIDBITS %%%%
+\par
+
+%%%% HOW THE SYSTEM'S FEATURES CAN BOOST PERFORMANCE %%%%
+\par
+
+
+SOURCES:
+(1) http://www.crn.com/news/components-peripherals/240003811/arm-snags-95-percent-of-smartphone-market-eyes-new-areas-for-growth.htm
+(2) http://www.reds.ch/share/cours/ReCo/documents/TheHistoryOfTheArmArchitecture.pdf
+(3) Grisenthwaite, Richard (2011). "ARMv8-A Technology Preview"
+(4) "Tech Files Columns, 1987-1990"
+(5) http://www.cs.uregina.ca/Links/class-info/301/ARM-addressing/lecture.html
+(6) http://physinfo.ulb.ac.be/divers_html/powerpc_programming_info/intro_to_ppc/ppc3_software2.html
+(7) http://www.csse.monash.edu.au/~davida/teaching/cse3304/Web/Chapter5/sld036.htm
+(8) http://en.wikipedia.org/wiki/IBM_POWER_microprocessors
+
+\end{document}
