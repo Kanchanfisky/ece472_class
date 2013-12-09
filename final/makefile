@@ -1,4 +1,4 @@
-TARGET=midterm2
+TARGET=ECE472_Final_branaugj
 HTML=main_html
 
 default: pdf
@@ -35,3 +35,8 @@ clean:
 	rm ${TARGET}.log
 	rm ${TARGET}.out
 	rm ${TARGET}.ps
+
+display:
+	make default
+	evince $(TARGET).pdf
+	make clean
